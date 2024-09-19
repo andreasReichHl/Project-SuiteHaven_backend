@@ -1,6 +1,7 @@
-
+.DS_Store
 dir.env
 .env.*
+env.testing
 
 
 HELP.md
