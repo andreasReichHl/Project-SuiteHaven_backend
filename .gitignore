@@ -1,6 +1,10 @@
-dir.env
-.env.*
+.env
+.env.dev
+env.*
+pom.xml
+.idea
 
+.DS_Store
 
 HELP.md
 target/
