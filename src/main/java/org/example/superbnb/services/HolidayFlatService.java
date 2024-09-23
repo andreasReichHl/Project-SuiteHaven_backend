@@ -52,6 +52,9 @@ public class HolidayFlatService {
                    return room;
                 }).toList();
         holidayFlat.setRooms(roomList);
+        FlatManagement flatManagement = new FlatManagement();
+        holidayFlat.setManagement(flatManagement);
+        flatManagement.setHolidayFlat(holidayFlat);
         return holidayFlatRepository.save(holidayFlat);
     }
 }
