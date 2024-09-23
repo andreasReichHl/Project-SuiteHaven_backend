@@ -4,27 +4,22 @@ import org.example.superbnb.dtos.user.UserNewResponseDto;
 import org.example.superbnb.dtos.user.UserRequestDto;
 import org.example.superbnb.entities.User;
 import org.example.superbnb.entities.UserProfile;
-import org.example.superbnb.repositories.UserProfileRepository;
 import org.example.superbnb.repositories.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.NoSuchElementException;
-
 @Service
-public class UserService {
+public class AuthenticationService {
 
-    UserRepository userRepository;
-    UserProfileRepository userProfileRepository;
-    PasswordEncoder passwordEncoder;
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository userRepository, UserProfileRepository userProfileRepository, PasswordEncoder passwordEncoder) {
+    public AuthenticationService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
-        this.userProfileRepository = userProfileRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
-    public UserNewResponseDto createNewUser(UserRequestDto dto){
+    public User createNewUser(UserRequestDto dto){
         UserProfile userProfile = new UserProfile();
         User user = new User();
         userProfile.setFirstname(dto.firstname());
@@ -32,10 +27,7 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(dto.password()));
         user.setEmail(dto.email());
         user.setUserProfile(userProfile);
-        userRepository.save(user);
-        return new UserNewResponseDto(userProfile.getName(), user.getEmail(), user.getPassword());
+        return userRepository.save(user);
     }
-
-
 
 }

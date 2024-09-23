@@ -27,5 +27,5 @@ public class UserBooking {
     private HolidayFlat holidayFlat;
 
     @ManyToOne
-    private Users user;
+    private User user;
 }

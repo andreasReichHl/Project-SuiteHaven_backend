@@ -6,8 +6,7 @@ import jakarta.validation.constraints.NotBlank;
 import org.mindrot.jbcrypt.BCrypt;
 
 @Entity
-@Table(name = "userData")
-public class Users {
+public class UserProfile {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,12 +18,11 @@ public class Users {
     @NotBlank
     private String lastname;
 
-    @Email
-    @Column(unique = true)
-    private String email;
+    @Transient
+    private String name;
 
-    @Column(unique = true)
-    private String password;
+    @OneToOne(mappedBy = "userProfile")
+    private User user;
 
     public long getId() {
         return id;
@@ -50,23 +48,19 @@ public class Users {
         this.lastname = lastname;
     }
 
-    public @Email String getEmail() {
-        return email;
+    public String getName() {
+        return firstname + " " + lastname;
     }
 
-    public void setEmail(@Email String email) {
-        this.email = email;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getPassword() {
-        return password;
+    public User getUser() {
+        return user;
     }
 
-    public void setPassword(String password) {
-        this.password = BCrypt.hashpw(password, BCrypt.gensalt());
-    }
-
-    public boolean checkPassword(String password){
-        return BCrypt.checkpw(password, this.password);
+    public void setUser(User user) {
+        this.user = user;
     }
 }
