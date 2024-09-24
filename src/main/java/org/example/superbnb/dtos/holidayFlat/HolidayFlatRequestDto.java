@@ -4,7 +4,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import org.example.superbnb.entities.Room;
-import org.example.superbnb.entities.SleepingRoom;
+import org.example.superbnb.entities.Bedroom;
 
 public record HolidayFlatRequestDto(
         @NotNull
@@ -22,7 +22,7 @@ public record HolidayFlatRequestDto(
         @Min(value = 0, message = "Reinigungspreis muss größer als 0 sein")
         int cleaning,
         @Valid
-        SleepingRoom[] sleepingRooms,
+        Bedroom[] bedrooms,
         @NotNull
         long hostId,
         @Valid

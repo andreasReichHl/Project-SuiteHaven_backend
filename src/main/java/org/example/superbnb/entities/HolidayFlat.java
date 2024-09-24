@@ -1,9 +1,7 @@
 package org.example.superbnb.entities;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.ColumnDefault;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -28,7 +26,7 @@ public class HolidayFlat {
     private int finalCleaningPrice;
 
     @OneToMany(mappedBy = "holidayFlat", cascade = {CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
-    private List<SleepingRoom> sleepingRooms;
+    private List<Bedroom> bedrooms;
 
     @OneToOne(cascade = {
             CascadeType.MERGE,
@@ -118,12 +116,12 @@ public class HolidayFlat {
         this.finalCleaningPrice = finalCleaningPrice;
     }
 
-    public List<SleepingRoom> getSleepingRooms() {
-        return sleepingRooms;
+    public List<Bedroom> getBedrooms() {
+        return bedrooms;
     }
 
-    public void setSleepingRooms(List<SleepingRoom> sleepingRooms) {
-        this.sleepingRooms = sleepingRooms;
+    public void setBedrooms(List<Bedroom> bedrooms) {
+        this.bedrooms = bedrooms;
     }
 
     public User getUser() {

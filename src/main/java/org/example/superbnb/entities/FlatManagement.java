@@ -1,6 +1,7 @@
 package org.example.superbnb.entities;
 
 import jakarta.persistence.*;
+import org.example.superbnb.enums.BookingStatus;
 import org.hibernate.annotations.ColumnDefault;
 
 import java.time.LocalDate;
@@ -16,6 +17,9 @@ public class FlatManagement {
     private LocalDate lastUpdate;
     private boolean isPublic;
     private boolean isActive;
+
+    @Enumerated(EnumType.STRING)
+    private BookingStatus bookingStatus;
 
     @OneToOne()
     private HolidayFlat holidayFlat;

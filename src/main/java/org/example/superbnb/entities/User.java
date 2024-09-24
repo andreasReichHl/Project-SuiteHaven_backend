@@ -28,12 +28,12 @@ public class User implements UserDetails {
 
     private String password;
 
-    private Role role;
+    private String role;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
-        grantedAuthorities.add(new SimpleGrantedAuthority("ADMIN"));
+        grantedAuthorities.add(new SimpleGrantedAuthority(this.role));
         return grantedAuthorities;
     }
 
@@ -70,11 +70,11 @@ public class User implements UserDetails {
         this.password = password;
     }
 
-    public Role getRole() {
+    public String getRole() {
         return role;
     }
 
-    public void setRole(Role role) {
+    public void setRole(String role) {
         this.role = role;
     }
 
@@ -85,4 +85,6 @@ public class User implements UserDetails {
     public void setUserProfile(UserProfile userProfile) {
         this.userProfile = userProfile;
     }
+
+
 }
