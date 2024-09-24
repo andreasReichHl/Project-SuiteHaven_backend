@@ -1,6 +1,6 @@
 package org.example.superbnb.repositories;
 
-import org.example.superbnb.entities.User;
+import org.example.superbnb.entities.users.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

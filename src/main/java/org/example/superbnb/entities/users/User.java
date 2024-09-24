@@ -1,15 +1,10 @@
-package org.example.superbnb.entities;
+package org.example.superbnb.entities.users;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import org.example.superbnb.enums.Role;
-import org.hibernate.annotations.ColumnDefault;
-import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.web.authentication.switchuser.SwitchUserGrantedAuthority;
 
 import java.util.ArrayList;
 import java.util.Collection;

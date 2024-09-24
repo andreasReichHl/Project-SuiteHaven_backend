@@ -2,7 +2,7 @@ package org.example.superbnb.controller;
 
 import jakarta.validation.Valid;
 import org.example.superbnb.dtos.holidayFlat.HolidayFlatRequestDto;
-import org.example.superbnb.entities.HolidayFlat;
+import org.example.superbnb.entities.flat.HolidayFlat;
 import org.example.superbnb.enums.ApiEnums;
 import org.example.superbnb.services.HolidayFlatService;
 import org.springframework.http.ResponseEntity;

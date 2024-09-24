@@ -1,8 +1,8 @@
-package org.example.superbnb.entities;
+package org.example.superbnb.entities.booking;
 
 import jakarta.persistence.*;
+import org.example.superbnb.entities.flat.HolidayFlat;
 import org.example.superbnb.enums.BookingStatus;
-import org.hibernate.annotations.ColumnDefault;
 
 import java.time.LocalDate;
 

@@ -3,8 +3,9 @@ package org.example.superbnb.dtos.holidayFlat;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
-import org.example.superbnb.entities.Room;
-import org.example.superbnb.entities.Bedroom;
+import org.example.superbnb.entities.amenity.Amenity;
+import org.example.superbnb.entities.flat.Room;
+import org.example.superbnb.entities.flat.Bedroom;
 
 public record HolidayFlatRequestDto(
         @NotNull
@@ -26,6 +27,8 @@ public record HolidayFlatRequestDto(
         @NotNull
         long hostId,
         @Valid
-        Room[] rooms
+        Room[] rooms,
+        @Valid
+        Amenity[] amenities
 ) {
 }

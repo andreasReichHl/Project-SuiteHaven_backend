@@ -4,7 +4,7 @@ package org.example.superbnb.dtos.bedroom;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
-import org.example.superbnb.entities.HolidayFlat;
+import org.example.superbnb.entities.flat.HolidayFlat;
 
 public record BedroomRequestDto(
 

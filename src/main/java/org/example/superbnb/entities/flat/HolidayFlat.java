@@ -1,6 +1,9 @@
-package org.example.superbnb.entities;
+package org.example.superbnb.entities.flat;
 
 import jakarta.persistence.*;
+import org.example.superbnb.entities.amenity.Amenity;
+import org.example.superbnb.entities.booking.FlatManagement;
+import org.example.superbnb.entities.users.User;
 
 import java.util.List;
 
@@ -43,6 +46,9 @@ public class HolidayFlat {
 
     @OneToOne(mappedBy = "holidayFlat", cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE})
     private FlatManagement management;
+
+    @OneToMany(mappedBy = "holidayFlat",cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE})
+    private List<Amenity> amenities;
 
     public HolidayFlat() {
     }
@@ -146,5 +152,13 @@ public class HolidayFlat {
 
     public void setManagement(FlatManagement management) {
         this.management = management;
+    }
+
+    public List<Amenity> getAmenities() {
+        return amenities;
+    }
+
+    public void setAmenities(List<Amenity> amenities) {
+        this.amenities = amenities;
     }
 }

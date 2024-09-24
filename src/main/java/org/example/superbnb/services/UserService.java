@@ -2,14 +2,12 @@ package org.example.superbnb.services;
 
 import org.example.superbnb.dtos.user.UserNewResponseDto;
 import org.example.superbnb.dtos.user.UserRequestDto;
-import org.example.superbnb.entities.User;
-import org.example.superbnb.entities.UserProfile;
+import org.example.superbnb.entities.users.User;
+import org.example.superbnb.entities.users.UserProfile;
 import org.example.superbnb.repositories.UserProfileRepository;
 import org.example.superbnb.repositories.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.NoSuchElementException;
 
 @Service
 public class UserService {

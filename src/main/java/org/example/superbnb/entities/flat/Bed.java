@@ -1,4 +1,4 @@
-package org.example.superbnb.entities;
+package org.example.superbnb.entities.flat;
 
 import jakarta.persistence.*;
 import org.example.superbnb.enums.BedType;

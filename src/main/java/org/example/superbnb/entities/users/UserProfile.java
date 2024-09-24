@@ -1,9 +1,7 @@
-package org.example.superbnb.entities;
+package org.example.superbnb.entities.users;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import org.mindrot.jbcrypt.BCrypt;
 
 @Entity
 public class UserProfile {

@@ -1,14 +1,19 @@
 package org.example.superbnb.services;
 
 import org.example.superbnb.dtos.holidayFlat.HolidayFlatRequestDto;
-import org.example.superbnb.entities.*;
+import org.example.superbnb.entities.amenity.Amenity;
+import org.example.superbnb.entities.booking.FlatManagement;
+import org.example.superbnb.entities.flat.Bed;
+import org.example.superbnb.entities.flat.Bedroom;
+import org.example.superbnb.entities.flat.HolidayFlat;
+import org.example.superbnb.entities.flat.Room;
+import org.example.superbnb.entities.users.User;
 import org.example.superbnb.repositories.HolidayFlatRepository;
 import org.example.superbnb.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.NoSuchElementException;
 
 @Service
@@ -30,6 +35,8 @@ public class HolidayFlatService {
         holidayFlat.setBedrooms(bedrooms);
         List<Room> roomList = createRooms(dto, holidayFlat);
         holidayFlat.setRooms(roomList);
+        List<Amenity> amenityList = createAmenity(dto, holidayFlat);
+        holidayFlat.setAmenities(amenityList);
 
         FlatManagement flatManagement = new FlatManagement();
         holidayFlat.setManagement(flatManagement);
@@ -78,5 +85,16 @@ public class HolidayFlatService {
 
     private User getUserProfile(HolidayFlatRequestDto dto) {
         return userRepository.findById(dto.hostId()).orElseThrow(() -> new NoSuchElementException("Host not found"));
+    }
+
+    private List<Amenity> createAmenity(HolidayFlatRequestDto dto, HolidayFlat holidayFlat) {
+        return Arrays.stream(dto.amenities())
+                .map(amenityType -> {
+                    Amenity amenity = new Amenity();
+                    amenity.setAmenityType(amenityType.getAmenityType());
+                    amenity.setHolidayFlat(holidayFlat);
+                    return amenity;
+                })
+                .toList();
     }
 }
