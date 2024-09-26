@@ -10,11 +10,13 @@ import org.example.superbnb.entities.flat.Room;
 import org.example.superbnb.entities.users.User;
 import org.example.superbnb.repositories.HolidayFlatRepository;
 import org.example.superbnb.repositories.UserRepository;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Service
 public class HolidayFlatService {
@@ -96,5 +98,9 @@ public class HolidayFlatService {
                     return amenity;
                 })
                 .toList();
+    }
+    public void deleteFlat(long id){
+        HolidayFlat flat = holidayFlatRepository.findById(id).orElseThrow(()-> new NoSuchElementException("HolidayFlat not founded"));
+        holidayFlatRepository.delete(flat);
     }
 }

@@ -10,8 +10,6 @@ public record UserRequestDto(
         @Email
         String email,
         @NotNull
-        String password,
-        @NotNull
-        Role role
+        String password
 ) {
 }

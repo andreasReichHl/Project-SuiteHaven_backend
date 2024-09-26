@@ -20,7 +20,7 @@ public class Bedroom {
    @OneToMany(mappedBy = "bedroom", cascade = {
            CascadeType.MERGE,
            CascadeType.PERSIST,
-            CascadeType.REFRESH
+            CascadeType.REMOVE
    }, fetch = FetchType.LAZY)
     private List<Bed> beds;
 

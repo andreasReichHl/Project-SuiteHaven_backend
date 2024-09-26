@@ -28,19 +28,16 @@ public class HolidayFlat {
 
     private int finalCleaningPrice;
 
-    @OneToMany(mappedBy = "holidayFlat", cascade = {CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+    @OneToMany(mappedBy = "holidayFlat", cascade = {CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REMOVE})
     private List<Bedroom> bedrooms;
 
-    @OneToOne(cascade = {
-            CascadeType.MERGE,
-            CascadeType.PERSIST,
-            CascadeType.REMOVE})
+    @ManyToOne()
     private User user;
 
     @OneToMany(mappedBy = "holidayFlat", cascade = {
             CascadeType.MERGE,
             CascadeType.PERSIST,
-            CascadeType.REFRESH
+            CascadeType.REMOVE
     })
     private List<Room> rooms;
 

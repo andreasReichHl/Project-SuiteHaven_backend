@@ -1,4 +1,7 @@
 package org.example.superbnb.dtos.user;
 
-public record LoginRequest() {
+public record LoginRequestDto(
+        String username,
+        String password
+) {
 }
