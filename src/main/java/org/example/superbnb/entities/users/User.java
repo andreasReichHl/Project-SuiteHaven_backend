@@ -2,6 +2,7 @@ package org.example.superbnb.entities.users;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
+import org.example.superbnb.enums.Role;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,12 +24,13 @@ public class User implements UserDetails {
 
     private String password;
 
-    private String role;
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
-        grantedAuthorities.add(new SimpleGrantedAuthority(this.role));
+        grantedAuthorities.add(new SimpleGrantedAuthority(this.role.getRole()));
         return grantedAuthorities;
     }
 
@@ -65,11 +67,11 @@ public class User implements UserDetails {
         this.password = password;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 

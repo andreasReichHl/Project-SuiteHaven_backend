@@ -91,7 +91,7 @@ public class HolidayFlatService {
         return Arrays.stream(dto.amenities())
                 .map(amenityType -> {
                     Amenity amenity = new Amenity();
-                    amenity.setAmenityType(amenityType.getAmenityType());
+                    amenity.setAmenityType(amenityType.getAmenityType()); // Verwende direkt amenityType, da es bereits ein Enum ist
                     amenity.setHolidayFlat(holidayFlat);
                     return amenity;
                 })
