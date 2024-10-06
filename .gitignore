@@ -2,6 +2,7 @@
 dir.env
 .env.*
 env.testing
+.pem
 
 
 HELP.md

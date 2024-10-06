@@ -47,6 +47,9 @@ public class HolidayFlat {
     @OneToMany(mappedBy = "holidayFlat",cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE})
     private List<Amenity> amenities;
 
+    @OneToMany(mappedBy = "holidayFlat",cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE})
+    private List<Photo> photos;
+
     public HolidayFlat() {
     }
 

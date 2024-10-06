@@ -43,14 +43,9 @@ public class AuthenticationController {
     public ResponseEntity<?> login(@RequestBody LoginRequestDto dto) {
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(dto.username(), dto.password());
         Authentication authentication = authenticationManager.authenticate(authenticationToken);
-
         String token = authenticationService.token(authentication);
-
-        // Rückgabe des Tokens in einem JSON-Objekt
         Map<String, String> response = new HashMap<>();
-        response.put("token", token); // Setze den Token in eine Map
-
-        // Gibt die Map als JSON zurück
+        response.put("token", token);
         return ResponseEntity.ok(response);
     }
 }

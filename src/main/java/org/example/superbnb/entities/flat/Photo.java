@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-public class Photos {
+public class Photo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,8 +14,14 @@ public class Photos {
     @ManyToOne(fetch = FetchType.LAZY)
     private HolidayFlat holidayFlat;
 
+    @Column
+    private String fileName;
+
     @Column(nullable = false)
     private String url;
+
+    @Column
+    private String thumbUrl;
 
     @Column(length = 255)
     private String description;
@@ -26,14 +32,23 @@ public class Photos {
     @Column(nullable = false)
     private LocalDateTime updatedAt;
 
+    public Photo() {
+    }
+
+    public Photo(String fileName, String url, String thumbUrl) {
+        this.fileName = fileName;
+        this.url = url;
+        this.thumbUrl = thumbUrl;
+    }
+
     @PrePersist
-    protected void onCreate(){
+    protected void onCreate() {
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
     }
 
     @PreUpdate
-    protected void onUpdate(){
+    protected void onUpdate() {
         this.updatedAt = LocalDateTime.now();
     }
 
@@ -83,5 +98,13 @@ public class Photos {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public String getThumbUrl() {
+        return thumbUrl;
+    }
+
+    public void setThumbUrl(String thumbUrl) {
+        this.thumbUrl = thumbUrl;
     }
 }
