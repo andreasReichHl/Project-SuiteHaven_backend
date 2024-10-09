@@ -3,12 +3,13 @@ dir.env
 .env.*
 env.testing
 .pem
-
+*.pem
 
 HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
+!**/src/main/resource/certs
 !**/src/test/**/target/
 
 ### STS ###
