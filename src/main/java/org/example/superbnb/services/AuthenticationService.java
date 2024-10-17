@@ -25,7 +25,7 @@ public class AuthenticationService {
     public User createNewUser(UserRequestDto dto){
         UserProfile userProfile = new UserProfile();
         User user = new User();
-        user.setRole(Role.USER);
+        user.setRole(Role.HOST);
         userProfile.setFirstname(dto.firstname());
         userProfile.setLastname(dto.lastname());
         user.setPassword(passwordEncoder.encode(dto.password()));

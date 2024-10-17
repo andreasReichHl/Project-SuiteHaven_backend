@@ -22,7 +22,7 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public UserNewResponseDto createNewUser(UserRequestDto dto){
+    public UserNewResponseDto createNewHost(UserRequestDto dto){
         UserProfile userProfile = new UserProfile();
         User user = new User();
         userProfile.setFirstname(dto.firstname());

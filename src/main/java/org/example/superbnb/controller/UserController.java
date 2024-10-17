@@ -8,10 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import static org.example.superbnb.enums.ApiEnums.SUPERBNB_API;
-
 @RestController
-@RequestMapping(SUPERBNB_API)
+@RequestMapping("${suiteHaven.api.path}"+"/auth")
 public class UserController {
 
     UserService userService;
@@ -20,9 +18,9 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping("/auth")
+    @PostMapping("/newHost")
     public ResponseEntity<UserNewResponseDto> createNewUser(@RequestBody @Validated UserRequestDto dto){
-        return ResponseEntity.ok(userService.createNewUser(dto));
+        return ResponseEntity.ok(userService.createNewHost(dto));
     }
 
 
