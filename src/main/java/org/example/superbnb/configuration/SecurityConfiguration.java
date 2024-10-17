@@ -6,6 +6,7 @@ import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -41,6 +42,9 @@ public class SecurityConfiguration{
         this.rsaKeyProperties = rsaKeyProperties;
     }
 
+    @Value("${suiteHaven.api.path}")
+    private String apiPath;
+
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
         return httpSecurity
@@ -52,7 +56,7 @@ public class SecurityConfiguration{
                         .configurationSource(corsConfigurationSource())
                 )
                 .authorizeHttpRequests(request -> request
-                        .requestMatchers( "${suiteHaven.api.path}"+"/auth/**")
+                        .requestMatchers(apiPath +"/auth/**")
                         .permitAll()
                         .anyRequest()
                         .authenticated()).

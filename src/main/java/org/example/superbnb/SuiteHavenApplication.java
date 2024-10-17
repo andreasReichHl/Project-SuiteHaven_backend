@@ -7,10 +7,10 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 
 @SpringBootApplication
 @EnableConfigurationProperties(RsaKeyProperties.class)
-public class SuperbnbApplication {
+public class SuiteHavenApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SuperbnbApplication.class, args);
+		SpringApplication.run(SuiteHavenApplication.class, args);
 	}
 
 }
