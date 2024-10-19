@@ -6,27 +6,30 @@ import org.example.suiteHaven.entities.users.UserProfile;
 import org.example.suiteHaven.enums.Role;
 import org.example.suiteHaven.repositories.UserProfileRepository;
 import org.example.suiteHaven.repositories.UserRepository;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.NoSuchElementException;
+import java.util.UUID;
 
 @Service
 public class UserService {
 
-    UserRepository userRepository;
-    UserProfileRepository userProfileRepository;
-    PasswordEncoder passwordEncoder;
+    private final UserRepository userRepository;
+    private final RedisService redisService;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository userRepository, UserProfileRepository userProfileRepository, PasswordEncoder passwordEncoder) {
+    private String token;
+
+    public UserService(UserRepository userRepository, RedisService redisService, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
-        this.userProfileRepository = userProfileRepository;
+        this.redisService = redisService;
+
         this.passwordEncoder = passwordEncoder;
     }
 
-    @Transactional
     public User createNewHost(UserRequestDto dto) {
         UserProfile userProfile = new UserProfile();
         User user = new User();
@@ -37,7 +40,7 @@ public class UserService {
         user.setRole(Role.HOST);
         user.setUserProfile(userProfile);
         userRepository.save(user);
-//        return new UserNewResponseDto(userProfile.getName(), user.getEmail(), user.getPassword());
+        createMailVerification(user.getEmail(), user.getId());
         return user;
     }
 
@@ -46,6 +49,18 @@ public class UserService {
         user.setAccountNonLocked(true);
         userRepository.save(user);
     }
+
+    private String createToken(){
+        return UUID.randomUUID().toString();
+    }
+
+    public void createMailVerification(String mail, Long userId){
+        String token = createToken();
+        redisService.saveValue(token, userId);
+        System.out.println(redisService.getValue(token));
+    }
+
+
 
 
 }
