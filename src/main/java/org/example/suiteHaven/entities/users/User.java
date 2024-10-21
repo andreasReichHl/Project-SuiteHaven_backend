@@ -7,6 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -37,6 +38,23 @@ public class User implements UserDetails {
     }
 
     private boolean accountNonLocked = false;
+
+    @Column
+    private LocalDateTime created;
+
+    @PrePersist
+    private void onCreate(){
+        this.created = LocalDateTime.now();
+        this.updated= LocalDateTime.now();
+    }
+
+    @Column
+    private LocalDateTime updated;
+
+    @PreUpdate
+    private void onUpdate(){
+        this.updated = LocalDateTime.now();
+    }
 
     @Override
     public boolean isAccountNonLocked() {
@@ -94,5 +112,21 @@ public class User implements UserDetails {
 
     public void setAccountNonLocked(boolean accountNonLocked) {
         this.accountNonLocked = accountNonLocked;
+    }
+
+    public LocalDateTime getCreated() {
+        return created;
+    }
+
+    public void setCreated(LocalDateTime created) {
+        this.created = created;
+    }
+
+    public LocalDateTime getUpdated() {
+        return updated;
+    }
+
+    public void setUpdated(LocalDateTime updated) {
+        this.updated = updated;
     }
 }

@@ -20,20 +20,5 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping("/newHost")
-    public ResponseEntity<User> createNewUser(@RequestBody @Validated UserRequestDto dto) {
-        try {
-            return ResponseEntity.ok(userService.createNewHost(dto));
-        } catch (UserAlreadyExistsException e) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(null);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
-        }
-    }
 
-    @PutMapping("/unlocked")
-    public ResponseEntity<Void> unlockAccount(@RequestParam long userId){
-        userService.unlockAccount(userId);
-        return ResponseEntity.ok().build();
-    }
 }

@@ -4,9 +4,13 @@ import org.example.suiteHaven.dtos.user.UserRequestDto;
 import org.example.suiteHaven.entities.users.User;
 import org.example.suiteHaven.entities.users.UserProfile;
 import org.example.suiteHaven.enums.Role;
-import org.example.suiteHaven.repositories.UserProfileRepository;
 import org.example.suiteHaven.repositories.UserRepository;
-import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UserDetailsByNameServiceWrapper;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,47 +24,51 @@ public class UserService {
     private final UserRepository userRepository;
     private final RedisService redisService;
     private final PasswordEncoder passwordEncoder;
+    private final EmailService emailService;
+    private final AuthenticationManager authenticationManager;
+    private final TokenService tokenService;
 
     private String token;
 
-    public UserService(UserRepository userRepository, RedisService redisService, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, RedisService redisService, PasswordEncoder passwordEncoder, EmailService emailService, AuthenticationManager authenticationManager, TokenService tokenService) {
         this.userRepository = userRepository;
         this.redisService = redisService;
-
         this.passwordEncoder = passwordEncoder;
+        this.emailService = emailService;
+        this.authenticationManager = authenticationManager;
+        this.tokenService = tokenService;
     }
 
-    public User createNewHost(UserRequestDto dto) {
+    public User createNewUser(UserRequestDto dto, Role role) {
         UserProfile userProfile = new UserProfile();
         User user = new User();
         userProfile.setFirstname(dto.firstname());
         userProfile.setLastname(dto.lastname());
         user.setPassword(passwordEncoder.encode(dto.password()));
         user.setEmail(dto.email());
-        user.setRole(Role.HOST);
+        user.setRole(role);
         user.setUserProfile(userProfile);
         userRepository.save(user);
-        createMailVerification(user.getEmail(), user.getId());
+        createMailVerification(user);
         return user;
     }
 
-    public void unlockAccount(long userId){
-        User user = userRepository.findById(userId).orElseThrow(()-> new NoSuchElementException("User not found"));
+    public void unlockAccount(long userId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new NoSuchElementException("User not found"));
         user.setAccountNonLocked(true);
         userRepository.save(user);
     }
 
-    private String createToken(){
-        return UUID.randomUUID().toString();
+    public void createMailVerification(User user) {
+        String token = createJwtToken(user);
+        emailService.sendHtmlEmail(user.getEmail(), token);
+        redisService.saveValue(token, user.getId());
     }
 
-    public void createMailVerification(String mail, Long userId){
-        String token = createToken();
-        redisService.saveValue(token, userId);
-        System.out.println(redisService.getValue(token));
+    public String createJwtToken(User user) {
+        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword(), user.getAuthorities());
+        return tokenService.generateToken(authentication);
     }
-
-
 
 
 }
