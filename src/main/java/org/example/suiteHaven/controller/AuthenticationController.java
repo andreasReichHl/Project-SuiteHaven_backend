@@ -33,10 +33,10 @@ public class AuthenticationController {
         return authenticationService.token(authentication);
     }
 
-//    @PutMapping("/verify-email")
-//    public ResponseEntity<?> verifyEmail(@RequestParam String token){
-//        if
-//    }
+    @PutMapping("/verify-email")
+    public ResponseEntity<?> verifyEmail(@RequestParam String token){
+        if()
+    }
 
 
 }

@@ -7,16 +7,10 @@ import org.example.suiteHaven.enums.Role;
 import org.example.suiteHaven.repositories.UserRepository;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.userdetails.UserDetailsByNameServiceWrapper;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.NoSuchElementException;
-import java.util.UUID;
 
 @Service
 public class UserService {
@@ -25,17 +19,15 @@ public class UserService {
     private final RedisService redisService;
     private final PasswordEncoder passwordEncoder;
     private final EmailService emailService;
-    private final AuthenticationManager authenticationManager;
     private final TokenService tokenService;
 
     private String token;
 
-    public UserService(UserRepository userRepository, RedisService redisService, PasswordEncoder passwordEncoder, EmailService emailService, AuthenticationManager authenticationManager, TokenService tokenService) {
+    public UserService(UserRepository userRepository, RedisService redisService, PasswordEncoder passwordEncoder, EmailService emailService, TokenService tokenService) {
         this.userRepository = userRepository;
         this.redisService = redisService;
         this.passwordEncoder = passwordEncoder;
         this.emailService = emailService;
-        this.authenticationManager = authenticationManager;
         this.tokenService = tokenService;
     }
 
