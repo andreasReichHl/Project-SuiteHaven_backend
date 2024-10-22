@@ -1,4 +1,4 @@
-package org.example.suiteHaven.services;
+package org.example.suiteHaven.services.userSpecific;
 
 import org.example.suiteHaven.dtos.user.UserRequestDto;
 import org.example.suiteHaven.entities.users.User;
@@ -42,15 +42,6 @@ public class UserService {
         userRepository.save(user);
         createMailVerification(user);
         return user;
-    }
-
-    public void unlockAccount(String token) {
-        String userMail = redisService.getValue(token);
-            User user = userRepository.findByEmail(userMail).orElseThrow(() -> new NoSuchElementException("User not found"));
-            user.setAccountNonLocked(true);
-            userRepository.save(user);
-
-
     }
 
     public void createMailVerification(User user) {

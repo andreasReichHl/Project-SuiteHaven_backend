@@ -1,23 +1,12 @@
 package org.example.suiteHaven.controller;
 
 import org.example.suiteHaven.dtos.TokenRequestDto;
-import org.example.suiteHaven.dtos.user.LoginRequestDto;
-import org.example.suiteHaven.dtos.user.UserRequestDto;
-import org.example.suiteHaven.entities.users.User;
-import org.example.suiteHaven.enums.Role;
-import org.example.suiteHaven.exception.UserAlreadyExistsException;
-import org.example.suiteHaven.services.AuthenticationService;
-import org.example.suiteHaven.services.UserService;
+import org.example.suiteHaven.services.userSpecific.AuthenticationService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.NoSuchElementException;
 
 @RestController

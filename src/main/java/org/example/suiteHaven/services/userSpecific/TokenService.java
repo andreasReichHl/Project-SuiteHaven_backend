@@ -1,4 +1,4 @@
-package org.example.suiteHaven.services;
+package org.example.suiteHaven.services.userSpecific;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;

@@ -1,4 +1,4 @@
-package org.example.suiteHaven.services;
+package org.example.suiteHaven.services.userSpecific;
 
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;

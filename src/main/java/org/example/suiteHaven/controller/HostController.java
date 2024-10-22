@@ -4,7 +4,7 @@ import org.example.suiteHaven.dtos.user.UserRequestDto;
 import org.example.suiteHaven.entities.users.User;
 import org.example.suiteHaven.enums.Role;
 import org.example.suiteHaven.exception.UserAlreadyExistsException;
-import org.example.suiteHaven.services.UserService;
+import org.example.suiteHaven.services.userSpecific.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;

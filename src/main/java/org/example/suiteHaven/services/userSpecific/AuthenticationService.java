@@ -1,4 +1,4 @@
-package org.example.suiteHaven.services;
+package org.example.suiteHaven.services.userSpecific;
 
 import org.example.suiteHaven.dtos.user.UserRequestDto;
 import org.example.suiteHaven.entities.users.User;

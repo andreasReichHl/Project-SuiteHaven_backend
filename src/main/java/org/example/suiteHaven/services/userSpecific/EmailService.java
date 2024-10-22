@@ -1,4 +1,4 @@
-package org.example.suiteHaven.services;
+package org.example.suiteHaven.services.userSpecific;
 
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
