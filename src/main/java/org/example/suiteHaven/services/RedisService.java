@@ -8,17 +8,21 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class RedisService {
 
-    private final RedisTemplate<String, Long> redisTemplate;
+    private final RedisTemplate<String, String> redisTemplate;
 
-    public RedisService(RedisTemplate<String, Long> redisTemplate) {
+    public RedisService(RedisTemplate<String, String> redisTemplate) {
         this.redisTemplate = redisTemplate;
     }
 
-    public void saveValue(String key, Long value){
+    public void saveValue(String key, String value){
         redisTemplate.opsForValue().set(key, value, 24, TimeUnit.HOURS);
     }
 
-    public Long getValue(String key){
+    public String getValue(String key){
         return redisTemplate.opsForValue().get(key);
+    }
+
+    public void deleteValue(String key) {
+        redisTemplate.delete(key);
     }
 }

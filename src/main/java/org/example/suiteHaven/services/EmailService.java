@@ -2,11 +2,15 @@ package org.example.suiteHaven.services;
 
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 @Service
 public class EmailService {
+
+    @Value("${frontend.api.path}")
+    private String frontendApi;
 
     private final JavaMailSender javaMailSender;
 
@@ -15,10 +19,9 @@ public class EmailService {
     }
 
     public void sendHtmlEmail(String email, String token) {
-        String link = "http://localhost:8080/api/v1/suiteHaven/auth/verify-email?token=" + token;
+        String link = frontendApi + "?token=" + token;
         try {
             MimeMessage message = javaMailSender.createMimeMessage();
-
             message.setRecipients(MimeMessage.RecipientType.TO, email);
             message.setSubject("Bitte bestätige deine Registrierung");
             message.setFrom("registration@suiteHaven.com");

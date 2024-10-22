@@ -1,5 +1,6 @@
 package org.example.suiteHaven.controller;
 
+import org.example.suiteHaven.dtos.TokenRequestDto;
 import org.example.suiteHaven.dtos.user.LoginRequestDto;
 import org.example.suiteHaven.dtos.user.UserRequestDto;
 import org.example.suiteHaven.entities.users.User;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("${suiteHaven.api.path}" + "/auth")
@@ -33,9 +35,16 @@ public class AuthenticationController {
         return authenticationService.token(authentication);
     }
 
-    @PutMapping("/verify-email")
-    public ResponseEntity<?> verifyEmail(@RequestParam String token){
-        if()
+    @PutMapping("/unlocked")
+    public ResponseEntity<?> verifyEmail(@RequestBody TokenRequestDto dto){
+      try{
+          authenticationService.unlockedAccount(dto.token());
+          return ResponseEntity.ok("Account successfully unlocked.");
+      }catch (NoSuchElementException e){
+          return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Invalid token or user not found");
+      } catch (Exception e) {
+          return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error unlocking account.");
+      }
     }
 
 

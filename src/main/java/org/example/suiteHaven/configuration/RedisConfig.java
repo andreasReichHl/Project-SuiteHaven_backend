@@ -10,8 +10,8 @@ public class RedisConfig {
 
 
     @Bean
-    public RedisTemplate<String, Long> redisTemplateInteger(RedisConnectionFactory factory){
-        RedisTemplate<String, Long> template = new RedisTemplate<>();
+    public RedisTemplate<String, String> redisTemplate(RedisConnectionFactory factory){
+        RedisTemplate<String, String> template = new RedisTemplate<>();
         template.setConnectionFactory(factory);
         return template;
     }

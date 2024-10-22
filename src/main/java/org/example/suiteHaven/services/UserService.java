@@ -5,7 +5,6 @@ import org.example.suiteHaven.entities.users.User;
 import org.example.suiteHaven.entities.users.UserProfile;
 import org.example.suiteHaven.enums.Role;
 import org.example.suiteHaven.repositories.UserRepository;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -45,16 +44,21 @@ public class UserService {
         return user;
     }
 
-    public void unlockAccount(long userId) {
-        User user = userRepository.findById(userId).orElseThrow(() -> new NoSuchElementException("User not found"));
-        user.setAccountNonLocked(true);
-        userRepository.save(user);
+    public void unlockAccount(String token) {
+        String userMail = redisService.getValue(token);
+            User user = userRepository.findByEmail(userMail).orElseThrow(() -> new NoSuchElementException("User not found"));
+            user.setAccountNonLocked(true);
+            userRepository.save(user);
+
+
     }
 
     public void createMailVerification(User user) {
         String token = createJwtToken(user);
-        emailService.sendHtmlEmail(user.getEmail(), token);
-        redisService.saveValue(token, user.getId());
+        String userMail = user.getEmail();
+        emailService.sendHtmlEmail(userMail, token);
+        redisService.saveValue(token, userMail);
+        System.out.println(redisService.getValue(token));
     }
 
     public String createJwtToken(User user) {
