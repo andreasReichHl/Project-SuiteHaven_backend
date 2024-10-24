@@ -4,6 +4,7 @@ import org.example.suiteHaven.dtos.user.UserRequestDto;
 import org.example.suiteHaven.entities.users.User;
 import org.example.suiteHaven.entities.users.UserProfile;
 import org.example.suiteHaven.enums.Role;
+import org.example.suiteHaven.mapper.UserDtoMapper;
 import org.example.suiteHaven.repositories.UserRepository;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,26 +20,22 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final EmailService emailService;
     private final TokenService tokenService;
+    private final UserDtoMapper mapper;
 
     private String token;
 
-    public UserService(UserRepository userRepository, RedisService redisService, PasswordEncoder passwordEncoder, EmailService emailService, TokenService tokenService) {
+    public UserService(UserRepository userRepository, RedisService redisService, PasswordEncoder passwordEncoder, EmailService emailService, TokenService tokenService, UserDtoMapper mapper) {
         this.userRepository = userRepository;
         this.redisService = redisService;
         this.passwordEncoder = passwordEncoder;
         this.emailService = emailService;
         this.tokenService = tokenService;
+        this.mapper = mapper;
     }
 
     public User createNewUser(UserRequestDto dto, Role role) {
-        UserProfile userProfile = new UserProfile();
-        User user = new User();
-        userProfile.setFirstname(dto.firstname());
-        userProfile.setLastname(dto.lastname());
-        user.setPassword(passwordEncoder.encode(dto.password()));
-        user.setEmail(dto.email());
+        User user = mapper.apply(dto);
         user.setRole(role);
-        user.setUserProfile(userProfile);
         userRepository.save(user);
         createMailVerification(user);
         return user;

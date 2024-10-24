@@ -1,5 +1,6 @@
 package org.example.suiteHaven.controller;
 
+import org.example.suiteHaven.dtos.JwtDto;
 import org.example.suiteHaven.dtos.TokenRequestDto;
 import org.example.suiteHaven.services.userSpecific.AuthenticationService;
 import org.springframework.http.HttpStatus;
@@ -20,8 +21,10 @@ public class AuthenticationController {
     }
 
     @PostMapping("/signIn")
-    public String signIn(Authentication authentication) {
-        return authenticationService.token(authentication);
+    public ResponseEntity<JwtDto> signIn(Authentication authentication) {
+        return ResponseEntity.ok(new JwtDto(authenticationService.token(authentication)));
+
+
     }
 
     @PutMapping("/unlocked")

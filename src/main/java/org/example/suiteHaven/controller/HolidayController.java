@@ -11,7 +11,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(ApiEnums.SUPERBNB_API)
+@RequestMapping("${suiteHaven.api.path}" +"/flat")
 public class HolidayController {
 
     HolidayFlatService holidayFlatService;

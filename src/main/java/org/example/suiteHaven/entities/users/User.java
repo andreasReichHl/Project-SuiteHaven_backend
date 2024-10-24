@@ -37,7 +37,7 @@ public class User implements UserDetails {
         return grantedAuthorities;
     }
 
-    private boolean accountNonLocked = false;
+    private boolean accountNonLocked = true;
 
     @Column
     private LocalDateTime created;
