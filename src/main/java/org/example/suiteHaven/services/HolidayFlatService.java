@@ -10,6 +10,7 @@ import org.example.suiteHaven.entities.flat.Room;
 import org.example.suiteHaven.entities.users.User;
 import org.example.suiteHaven.repositories.HolidayFlatRepository;
 import org.example.suiteHaven.repositories.UserRepository;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -27,8 +28,8 @@ public class HolidayFlatService {
         this.userRepository = userRepository;
     }
 
-    public HolidayFlat createNewHolidayFlat(HolidayFlatRequestDto dto) {
-        User user = getUserProfile(dto);
+    public HolidayFlat createNewHolidayFlat(HolidayFlatRequestDto dto, Authentication authentication) {
+        User user = getUserProfile(authentication);
         HolidayFlat holidayFlat = buildHolidayFlat(dto, user);
 
         List<Bedroom> bedrooms = createSleepingRooms(dto, holidayFlat);
@@ -47,7 +48,7 @@ public class HolidayFlatService {
     private static List<Room> createRooms(HolidayFlatRequestDto dto, HolidayFlat holidayFlat) {
         return Arrays.stream(dto.rooms())
                 .map(element -> {
-                    Room room = new Room(element.getName(), element.getNumber(), element.getHolidayFlat());
+                    Room room = new Room(element.getType(), element.getNumber(), element.getHolidayFlat());
                     room.setHolidayFlat(holidayFlat);
                     return room;
                 }).toList();
@@ -83,8 +84,10 @@ public class HolidayFlatService {
         return holidayFlat;
     }
 
-    private User getUserProfile(HolidayFlatRequestDto dto) {
-        return userRepository.findById(dto.hostId()).orElseThrow(() -> new NoSuchElementException("Host not found"));
+    private User getUserProfile(Authentication authentication) {
+        System.out.println("USERNAME: " + authentication.getName());
+        return userRepository.findByEmail(authentication.getName()
+        ).orElseThrow(() -> new NoSuchElementException("Host not found"));
     }
 
     private List<Amenity> createAmenity(HolidayFlatRequestDto dto, HolidayFlat holidayFlat) {

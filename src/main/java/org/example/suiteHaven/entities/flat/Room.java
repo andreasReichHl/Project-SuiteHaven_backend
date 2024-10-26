@@ -1,6 +1,7 @@
 package org.example.suiteHaven.entities.flat;
 
 import jakarta.persistence.*;
+import org.example.suiteHaven.enums.Rooms;
 
 @Entity
 public class Room {
@@ -9,15 +10,17 @@ public class Room {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private String name;
+
+    @Enumerated(EnumType.STRING)
+    private Rooms type;
 
     private int number;
 
     public Room() {
     }
 
-    public Room(String name, int number, HolidayFlat holidayFlat) {
-        this.name = name;
+    public Room(Rooms type, int number, HolidayFlat holidayFlat) {
+        this.type = type;
         this.number = number;
         this.holidayFlat = holidayFlat;
     }
@@ -33,12 +36,12 @@ public class Room {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public Rooms getType() {
+        return type;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setType(Rooms type) {
+        this.type = type;
     }
 
     public int getNumber() {

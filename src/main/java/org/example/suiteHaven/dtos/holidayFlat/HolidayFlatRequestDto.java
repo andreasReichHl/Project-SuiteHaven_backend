@@ -22,13 +22,10 @@ public record HolidayFlatRequestDto(
         int price,
         @Min(value = 0, message = "Reinigungspreis muss größer als 0 sein")
         int cleaning,
-        @Valid
         Bedroom[] bedrooms,
         @NotNull
         long hostId,
-        @Valid
         Room[] rooms,
-        @Valid
         Amenity[] amenities
 ) {
 }

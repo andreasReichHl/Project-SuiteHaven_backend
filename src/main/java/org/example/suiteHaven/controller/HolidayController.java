@@ -8,6 +8,7 @@ import org.example.suiteHaven.services.HolidayFlatService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -22,8 +23,8 @@ public class HolidayController {
 
 
     @PostMapping("/newFlat")
-    public ResponseEntity<HolidayFlat> createNewHolidayFlat(@RequestBody @Valid HolidayFlatRequestDto dto){
-        return ResponseEntity.ok(holidayFlatService.createNewHolidayFlat(dto));
+    public ResponseEntity<HolidayFlat> createNewHolidayFlat(@RequestBody HolidayFlatRequestDto dto, Authentication authentication){
+        return ResponseEntity.ok(holidayFlatService.createNewHolidayFlat(dto, authentication));
     }
 
     @PreAuthorize("hasAuthority('SCOPE_ADMIN')")

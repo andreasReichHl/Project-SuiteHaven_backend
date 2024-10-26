@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import org.example.suiteHaven.entities.amenity.Amenity;
 import org.example.suiteHaven.entities.booking.FlatManagement;
 import org.example.suiteHaven.entities.users.User;
+import org.example.suiteHaven.enums.Rooms;
+import org.springframework.web.ErrorResponse;
 
 import java.util.List;
 
@@ -39,6 +41,9 @@ public class HolidayFlat {
             CascadeType.PERSIST,
             CascadeType.REMOVE
     })
+
+    @ElementCollection(targetClass = Rooms.class)
+    @Enumerated(EnumType.STRING)
     private List<Room> rooms;
 
     @OneToOne(mappedBy = "holidayFlat", cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE})
@@ -57,6 +62,7 @@ public class HolidayFlat {
         this.title = title;
         this.city = city;
     }
+
 
     public long getId() {
         return id;
