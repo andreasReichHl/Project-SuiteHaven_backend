@@ -13,9 +13,16 @@ public class FlatManagement {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Column
     private LocalDate created;
+
+    @Column
     private LocalDate lastUpdate;
+
+    @Column
     private boolean isPublic;
+
+    @Column
     private boolean isActive;
 
     @Enumerated(EnumType.STRING)
