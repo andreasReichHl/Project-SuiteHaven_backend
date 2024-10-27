@@ -4,8 +4,10 @@ import jakarta.persistence.*;
 import org.example.suiteHaven.entities.flat.HolidayFlat;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @Entity
 public class FlatManagement {
@@ -29,9 +31,8 @@ public class FlatManagement {
     @OneToOne()
     private HolidayFlat holidayFlat;
 
-    @Column
-    @OneToMany(mappedBy = "flatManagement", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
-    private List<Evaluation> evaluations;
+    @OneToMany(mappedBy = "flatManagement", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Evaluation> evaluations = new HashSet<>();
 
     @PrePersist
     protected void onCreate() {
@@ -94,11 +95,11 @@ public class FlatManagement {
         this.holidayFlat = holidayFlat;
     }
 
-    public List<Evaluation> getEvaluations() {
+    public Set<Evaluation> getEvaluations() {
         return evaluations;
     }
 
-    public void setEvaluations(List<Evaluation> evaluations) {
+    public void setEvaluations(Set<Evaluation> evaluations) {
         this.evaluations = evaluations;
     }
 

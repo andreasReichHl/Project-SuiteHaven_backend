@@ -34,6 +34,7 @@ public class EvaluationService {
         if (user.getId() != holidayFlat.getUser().getId()){
             Evaluation evaluation = createEvaluationFromUser(dto, user, holidayFlat);
             evaluationRepository.save(evaluation);
+
             holidayFlatRepository.save(holidayFlat);
             return new EvaluationResponseDto(evaluation.getUser().getUsername(), evaluation.getAverageStars(), evaluation.getEvaluationText());
         }else{
@@ -51,6 +52,7 @@ public class EvaluationService {
         evaluation.setCommunication(dto.communication());
         evaluation.setEvaluationText(dto.evaluationText());
         evaluation.setUser(user);
+        evaluation.setFlatManagement(holidayFlat.getManagement());
         holidayFlat.getManagement().getEvaluations().add(evaluation);
         return evaluation;
     }

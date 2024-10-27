@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import org.example.suiteHaven.entities.users.User;
 
 import java.util.Arrays;
+import java.util.Map;
 
 @Entity
 public class Evaluation {
@@ -38,7 +39,7 @@ public class Evaluation {
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "flat_management")
+    @JoinColumn(name = "flat_management_id")
     private FlatManagement flatManagement;
 
     @Transient
@@ -46,7 +47,8 @@ public class Evaluation {
 
     public double getAverageStars() {
         int[] ratings = {cleanness, correctInformation, checkIn, location, pricePerformanceRatio, communication};
-        return Arrays.stream(ratings).average().orElse(0);
+              double avg = Arrays.stream(ratings).average().orElse(0);
+        return (double) Math.round(avg * 10) / 10.0;
     }
 
     public long getId() {

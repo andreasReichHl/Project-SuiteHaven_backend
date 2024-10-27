@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import org.example.suiteHaven.entities.flat.HolidayFlat;
 import org.example.suiteHaven.entities.users.User;
 import org.example.suiteHaven.enums.BookingStatus;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -40,6 +41,8 @@ public class Booking {
     @Enumerated(EnumType.STRING)
     private BookingStatus bookingStatus;
 
+    @Column
+    private boolean isReviewed = false;
 
     public long getId() {
         return id;
@@ -119,5 +122,13 @@ public class Booking {
 
     public void setBookingStatus(BookingStatus bookingStatus) {
         this.bookingStatus = bookingStatus;
+    }
+
+    public boolean isReviewed() {
+        return isReviewed;
+    }
+
+    public void setReviewed(boolean reviewed) {
+        isReviewed = reviewed;
     }
 }
