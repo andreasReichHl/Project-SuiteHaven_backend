@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import org.example.suiteHaven.entities.flat.HolidayFlat;
 import org.example.suiteHaven.entities.users.User;
 import org.example.suiteHaven.enums.BookingStatus;
-import org.springframework.beans.factory.annotation.Value;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -60,8 +59,8 @@ public class Booking {
         return pricePerNight;
     }
 
-    public long getTotalPriceOfNight() {
-        return night * pricePerNight;
+    public long getTotalPrice() {
+        return getNight() * pricePerNight + finalCleaningCost;
     }
 
     public void setPricePerNight(int pricePerNight) {

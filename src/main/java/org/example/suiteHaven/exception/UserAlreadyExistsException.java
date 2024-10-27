@@ -3,7 +3,7 @@ package org.example.suiteHaven.exception;
 import org.example.suiteHaven.entities.users.User;
 
 public class UserAlreadyExistsException extends RuntimeException {
-    private User user;
+    private final User user;
 
     public UserAlreadyExistsException(User user) {
         super("Host mit der Mail " + user.getEmail() + " exisitiert bereits!");
