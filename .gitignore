@@ -4,6 +4,7 @@ dir.env
 env.testing
 .pem
 *.pem
+.yml
 
 HELP.md
 target/
