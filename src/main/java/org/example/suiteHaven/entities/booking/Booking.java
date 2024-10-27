@@ -3,8 +3,10 @@ package org.example.suiteHaven.entities.booking;
 import jakarta.persistence.*;
 import org.example.suiteHaven.entities.flat.HolidayFlat;
 import org.example.suiteHaven.entities.users.User;
+import org.example.suiteHaven.enums.BookingStatus;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 @Entity
 public class Booking {
@@ -13,7 +15,11 @@ public class Booking {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private int night;
+    @Transient
+    private long night;
+
+    @Transient
+    private long totalPriceOfNight;
 
     private int pricePerNight;
 
@@ -31,6 +37,10 @@ public class Booking {
     @ManyToOne
     private User user;
 
+    @Enumerated(EnumType.STRING)
+    private BookingStatus bookingStatus;
+
+
     public long getId() {
         return id;
     }
@@ -39,16 +49,16 @@ public class Booking {
         this.id = id;
     }
 
-    public int getNight() {
-        return night;
-    }
-
-    public void setNight(int night) {
-        this.night = night;
+    public long getNight() {
+        return ChronoUnit.DAYS.between(checkIn, checkOut);
     }
 
     public int getPricePerNight() {
         return pricePerNight;
+    }
+
+    public long getTotalPriceOfNight() {
+        return night * pricePerNight;
     }
 
     public void setPricePerNight(int pricePerNight) {
@@ -101,5 +111,13 @@ public class Booking {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public BookingStatus getBookingStatus() {
+        return bookingStatus;
+    }
+
+    public void setBookingStatus(BookingStatus bookingStatus) {
+        this.bookingStatus = bookingStatus;
     }
 }

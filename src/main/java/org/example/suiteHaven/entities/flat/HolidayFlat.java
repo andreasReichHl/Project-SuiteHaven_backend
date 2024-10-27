@@ -16,18 +16,25 @@ public class HolidayFlat {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Column
     private String title;
 
+    @Column
     private String city;
 
+    @Column
     private String country;
 
+    @Column (length = 2048)
     private String description;
 
+    @Column
     private int personNumber;
 
+    @Column
     private int price;
 
+    @Column
     private int finalCleaningPrice;
 
     @OneToMany(mappedBy = "holidayFlat", cascade = {CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REMOVE})

@@ -17,17 +17,15 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final RedisService redisService;
-    private final PasswordEncoder passwordEncoder;
     private final EmailService emailService;
     private final TokenService tokenService;
     private final UserDtoMapper mapper;
 
     private String token;
 
-    public UserService(UserRepository userRepository, RedisService redisService, PasswordEncoder passwordEncoder, EmailService emailService, TokenService tokenService, UserDtoMapper mapper) {
+    public UserService(UserRepository userRepository, RedisService redisService, EmailService emailService, TokenService tokenService, UserDtoMapper mapper) {
         this.userRepository = userRepository;
         this.redisService = redisService;
-        this.passwordEncoder = passwordEncoder;
         this.emailService = emailService;
         this.tokenService = tokenService;
         this.mapper = mapper;
